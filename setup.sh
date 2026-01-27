@@ -10,8 +10,14 @@ echo ""
 echo -e "${BLUE}🚀 Prototype Template Setup${NC}"
 echo ""
 
+# Get current directory name as default
+CURRENT_DIR=$(basename "$PWD")
+
 # Get project name from user
-read -p "Enter your prototype name (e.g., patient-dashboard): " PROJECT_NAME
+read -p "Enter your prototype name [$CURRENT_DIR]: " PROJECT_NAME
+
+# Use current directory name if no input
+PROJECT_NAME=${PROJECT_NAME:-$CURRENT_DIR}
 
 # Validate input
 if [ -z "$PROJECT_NAME" ]; then
@@ -29,10 +35,8 @@ echo ""
 # Update root package.json
 if [ -f "package.json" ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        # macOS
         sed -i '' "s/\"name\": \"prototype-template\"/\"name\": \"$PROJECT_NAME\"/" package.json
     else
-        # Linux
         sed -i "s/\"name\": \"prototype-template\"/\"name\": \"$PROJECT_NAME\"/" package.json
     fi
     echo "✓ Updated root package.json"
@@ -60,6 +64,16 @@ if [ -f "app/src/components/shell/sidebar.tsx" ]; then
     echo "✓ Updated sidebar title"
 fi
 
+# Rename folder if project name is different from current directory
+if [ "$PROJECT_NAME" != "$CURRENT_DIR" ]; then
+    echo ""
+    echo "Renaming folder from '$CURRENT_DIR' to '$PROJECT_NAME'..."
+    cd ..
+    mv "$CURRENT_DIR" "$PROJECT_NAME"
+    cd "$PROJECT_NAME"
+    echo "✓ Renamed folder to $PROJECT_NAME"
+fi
+
 # Initialize git repository
 echo ""
 read -p "Initialize git repository? (Y/n): " INIT_GIT
@@ -76,8 +90,9 @@ echo ""
 echo -e "${GREEN}✅ Setup complete!${NC}"
 echo ""
 echo "Next steps:"
-echo "  1. pnpm install"
-echo "  2. pnpm dev"
+echo "  1. cd $PROJECT_NAME"
+echo "  2. pnpm install"
+echo "  3. pnpm dev"
 echo ""
 echo "Your prototype will be running at http://localhost:3060"
 echo ""
