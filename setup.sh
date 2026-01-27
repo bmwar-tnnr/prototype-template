@@ -52,17 +52,6 @@ if [ -f "app/package.json" ]; then
     echo "✓ Updated app/package.json"
 fi
 
-# Update sidebar title
-if [ -f "app/src/components/shell/sidebar.tsx" ]; then
-    # Convert project name to title case for display
-    DISPLAY_NAME=$(echo "$PROJECT_NAME" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' "s/Prototype/$DISPLAY_NAME/" app/src/components/shell/sidebar.tsx
-    else
-        sed -i "s/Prototype/$DISPLAY_NAME/" app/src/components/shell/sidebar.tsx
-    fi
-    echo "✓ Updated sidebar title"
-fi
 
 # Rename folder if project name is different from current directory
 if [ "$PROJECT_NAME" != "$CURRENT_DIR" ]; then

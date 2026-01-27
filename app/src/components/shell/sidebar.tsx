@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 import {
   CaretDoubleLeft,
   CaretDoubleRight,
-  MagnifyingGlass,
   House,
   Gear,
   CaretUpDown,
@@ -38,11 +37,6 @@ export function Sidebar({ collapsed = false, onCollapsedChange }: SidebarProps) 
   const pathname = usePathname();
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
   const userButtonRef = React.useRef<HTMLButtonElement>(null);
-
-  const triggerSearch = React.useCallback(() => {
-    // Dispatch ⌘K keyboard event to trigger CommandPalette
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
-  }, []);
 
   // TODO: Customize navigation items for your prototype
   const navGroups: NavGroup[] = [
@@ -101,7 +95,7 @@ export function Sidebar({ collapsed = false, onCollapsedChange }: SidebarProps) 
           {!collapsed && (
             <div className="flex flex-col items-start">
               <span className="text-sm font-semibold text-[var(--neutral-11)]">
-                Prototype
+                MedPlus
               </span>
             </div>
           )}
@@ -114,29 +108,6 @@ export function Sidebar({ collapsed = false, onCollapsedChange }: SidebarProps) 
             <CaretDoubleLeft className="w-4 h-4 text-[var(--neutral-11)]" />
           </button>
         )}
-      </div>
-
-      {/* Search Button */}
-      <div className="px-2 pb-2">
-        <button
-          onClick={triggerSearch}
-          className={cn(
-            'flex items-center gap-2 rounded-sm text-sm transition-colors w-full bg-[var(--neutral-1)] shadow-xs h-7',
-            'text-[var(--neutral-10)] hover:text-[var(--neutral-12)]',
-            collapsed ? 'justify-center p-2' : 'px-2'
-          )}
-          title={collapsed ? 'Search (⌘K)' : undefined}
-        >
-          <MagnifyingGlass className="w-4 h-4 shrink-0 text-[var(--neutral-10)]" />
-          {!collapsed && (
-            <>
-              <span className="flex-1 text-left text-[var(--neutral-10)]">Search</span>
-              <kbd className="text-xs text-[var(--neutral-10)] bg-[var(--neutral-3)] px-1 py-0.5 rounded-sm font-medium">
-                ⌘K
-              </kbd>
-            </>
-          )}
-        </button>
       </div>
 
       {/* Sidebar Content */}
