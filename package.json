@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "setup": "./setup.sh",
-    "dev": "pnpm --filter @tennr/lasso build && pnpm --filter app dev",
-    "build": "pnpm --filter @tennr/lasso build && pnpm --filter app build",
-    "lint": "pnpm --filter app lint"
+    "dev": "pnpm --filter @tennr/lasso build && pnpm --filter ./app dev",
+    "build": "pnpm --filter @tennr/lasso build && pnpm --filter ./app build",
+    "lint": "pnpm --filter ./app lint"
   },
   "devDependencies": {
     "next": "16.0.8"
