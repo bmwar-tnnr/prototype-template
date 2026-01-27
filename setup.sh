@@ -89,10 +89,13 @@ fi
 echo ""
 echo -e "${GREEN}✅ Setup complete!${NC}"
 echo ""
-echo "Next steps:"
-echo "  1. cd $PROJECT_NAME"
-echo "  2. pnpm install"
-echo "  3. pnpm dev"
+
+# Install dependencies and start dev server
+echo "Installing dependencies..."
+pnpm install
+
 echo ""
+echo -e "${GREEN}Starting dev server...${NC}"
 echo "Your prototype will be running at http://localhost:3060"
 echo ""
+pnpm dev
